@@ -23,7 +23,7 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleLevelChunkWithLight", at = @At("TAIL"))
     private void handleLevelChunkWithLight(ClientboundLevelChunkWithLightPacket packet, CallbackInfo ci) {
-        final var chunk = level.getChunk(packet.getX(), packet.getZ());
+        final var chunk = level.getChunk(packet.x(), packet.z());
         SpookyDoorClientTracking.get(level).trackDoorsInChunk(chunk);
     }
 

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MouseHandlerMixin {
 
     @Inject(method = "onMove", at = @At("HEAD"), cancellable = true)
-    private void onMove(long handle, double xpos, double ypos, CallbackInfo ci) {
+    private void onMove(long handle, double xpos, double ypos, double xrel, double yrel, CallbackInfo ci) {
         if (SpookyDoorsClient.onMoveMouse(handle, xpos, ypos)) {
             //noinspection DataFlowIssue
             ((MouseHandler) (Object) this).setIgnoreFirstMove();

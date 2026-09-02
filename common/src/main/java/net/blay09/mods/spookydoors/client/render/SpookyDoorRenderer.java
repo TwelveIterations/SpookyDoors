@@ -130,7 +130,7 @@ public class SpookyDoorRenderer {
         final var offX = pivot.x() / 16.0D;
         final var offZ = pivot.z() / 16.0D;
         poseStack.translate(offX, 0, offZ);
-        poseStack.mulPose(new Quaternionf(new AxisAngle4d(openness * Math.PI / 2, 0, hinge == DoorHingeSide.LEFT ? 1 : -1, 0)));
+        poseStack.rotate(new Quaternionf(new AxisAngle4d(openness * Math.PI / 2, 0, hinge == DoorHingeSide.LEFT ? 1 : -1, 0)));
         poseStack.translate(-offX, 0, -offZ);
     }
 }

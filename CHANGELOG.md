@@ -1,1 +1,1 @@
-- Fixed spooky doors still sometimes being non-spooky until first interaction
+- Updated to Minecraft 26.3

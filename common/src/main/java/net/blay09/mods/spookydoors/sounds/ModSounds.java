@@ -8,6 +8,6 @@ public class ModSounds {
     public static Holder<SoundEvent> doorCreak;
 
     public static void initialize(BalmRegistrar.Scoped<SoundEvent> soundEvents) {
-        doorCreak = soundEvents.register("door_creak", SoundEvent::createVariableRangeEvent);
+        doorCreak = soundEvents.register("door_creak", SoundEvent::createVariableRangeEvent).asHolder();
     }
 }

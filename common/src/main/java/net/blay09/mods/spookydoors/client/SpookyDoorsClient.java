@@ -23,6 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
@@ -42,6 +43,7 @@ public class SpookyDoorsClient {
     private static int rightClickDelayAfterDragging;
     private static float accumulatedOpennessChange;
     private static SpookyDoor activeDoor;
+    private static Player draggingPlayer;
     private static int ticksSinceLastSync;
     private static boolean isDirty;
 
@@ -177,6 +179,10 @@ public class SpookyDoorsClient {
     }
 
     private static void onClientTick(Minecraft client) {
+        if (isDragging && (client.player == null || client.player != draggingPlayer || !client.player.isAlive())) {
+            cancelDragging();
+        }
+
         ticksSinceLastSync++;
         if (ticksSinceLastSync >= SYNC_INTERVAL) {
             syncActiveDoorIfDirty();
@@ -253,6 +259,7 @@ public class SpookyDoorsClient {
                                 if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
                                     clientSpookyDoor.locallyControlled(true);
                                 }
+                                draggingPlayer = minecraft.player;
                                 isDragging = true;
                                 return true;
                             }
@@ -274,8 +281,20 @@ public class SpookyDoorsClient {
             }
             isDragging = false;
             activeDoor = null;
+            draggingPlayer = null;
         }
         return false;
+    }
+
+    private static void cancelDragging() {
+        if (activeDoor instanceof ClientSpookyDoor clientSpookyDoor) {
+            clientSpookyDoor.locallyControlled(false);
+        }
+        accumulatedOpennessChange = 0f;
+        isDirty = false;
+        isDragging = false;
+        activeDoor = null;
+        draggingPlayer = null;
     }
 
     private static boolean shouldBypassDragging(Minecraft client, SpookyDoor door) {

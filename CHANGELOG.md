@@ -1,1 +1,1 @@
-- Fixed spooky doors still sometimes being non-spooky until first interaction
+- Fixed door control not being explicitly canceled on death

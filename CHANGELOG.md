@@ -1,1 +1,2 @@
-- Updated to Minecraft 26.3
+- Fixed closed door state not being retained, causing potential desyncs
+- Fixed inverted condition causing redstone change not to be detected

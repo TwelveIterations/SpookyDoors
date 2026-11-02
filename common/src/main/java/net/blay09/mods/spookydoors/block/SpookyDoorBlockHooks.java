@@ -113,7 +113,7 @@ public class SpookyDoorBlockHooks {
         }
 
         final var door = SpookyDoorProvider.get(level).of(pos, state);
-        final boolean redstoneChanged = !state.hasProperty(DoorBlock.POWERED) || !previousState.hasProperty(DoorBlock.POWERED) || previousState.getValue(DoorBlock.POWERED) == state.getValue(DoorBlock.POWERED);
+        final boolean redstoneChanged = !state.hasProperty(DoorBlock.POWERED) || !previousState.hasProperty(DoorBlock.POWERED) || previousState.getValue(DoorBlock.POWERED) != state.getValue(DoorBlock.POWERED);
         if (door.spooky() && (redstoneChanged || !previousState.is(state.getBlock()))) {
             door.percentOpen(state.getOptionalValue(DoorBlock.OPEN).orElse(false) ? 1f : 0f);
             if (door instanceof ServerSpookyDoor serverSpookyDoor) {

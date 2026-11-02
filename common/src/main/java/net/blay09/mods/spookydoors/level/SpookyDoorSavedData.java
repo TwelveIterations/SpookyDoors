@@ -101,11 +101,7 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
     }
 
     public void setPercentOpen(BlockPos pos, float percentOpen) {
-        if (percentOpen == 0f) {
-            percentOpenByPos.remove(pos.asLong());
-        } else {
-            percentOpenByPos.put(pos.asLong(), Mth.clamp(percentOpen, 0f, 1f));
-        }
+        percentOpenByPos.put(pos.asLong(), Mth.clamp(percentOpen, 0f, 1f));
         setDirty();
     }
 

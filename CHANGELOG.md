@@ -1,1 +1,2 @@
-- Fixed door control not being explicitly canceled on death
+- Fixed closed door state not being retained, causing potential desyncs
+- Fixed inverted condition causing redstone change not to be detected

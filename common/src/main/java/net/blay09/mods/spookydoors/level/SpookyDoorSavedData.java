@@ -122,16 +122,7 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
     }
 
     public void setPercentOpen(BlockPos pos, float percentOpen) {
-        final var key = pos.asLong();
-        if (percentOpen == 0f) {
-            final var door = doorsByPos.get(key);
-            if (door != null) {
-                door.percentOpen = null;
-                removeIfEmpty(key, door);
-            }
-        } else {
-            doorsByPos.computeIfAbsent(key, PersistedSpookyDoor::new).percentOpen = Mth.clamp(percentOpen, 0f, 1f);
-        }
+        doorsByPos.computeIfAbsent(pos.asLong(), PersistedSpookyDoor::new).percentOpen = Mth.clamp(percentOpen, 0f, 1f);
         setDirty();
     }
 
@@ -208,9 +199,4 @@ public class SpookyDoorSavedData extends SavedData implements SpookyDoorProvider
         doorsByPos.computeIfAbsent(pos.asLong(), PersistedSpookyDoor::new).nextCreakSoundGameTime = gameTime;
     }
 
-    private void removeIfEmpty(long key, PersistedSpookyDoor door) {
-        if (!door.hasPersistedData() && door.nextCreakSoundGameTime == 0L) {
-            doorsByPos.remove(key);
-        }
-    }
 }
